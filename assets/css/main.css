@@ -1,0 +1,55 @@
+html, body {
+  height: 100%;
+}
+body {
+	background: #2f2f2f;
+	color: #f0f0f0;
+	font-family: 'Open Sans', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 400;
+	color: #f0f0f0;
+	color: rgba(255, 255, 255, 0.6);
+}
+
+.gridster ul{
+	list-style: none;
+	list-style-type: none;
+}
+.gridster li{
+	padding:8px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+
+/** Widget Stylings **/
+.gridster .widget-orange{
+	background: #ff553e;
+}
+.gridster .widget-red{
+	background: #ff543e;
+}
+.gridster .widget-yellow{
+	background: #ffbb3e;
+}
+.gridster .widget-blue{
+	background: #29889e;
+}
+/** End Widget Stylings **/
+
+.twitter{
+	font-weight:300; 
+	font-size:18px;
+	text-align: justify;
+	text-shadow: black;
+}
+.fine-print{
+	font-weight:200; 
+	font-size:12px;
+}
+.blogpost{
+	font-weight: 400;
+	font-size: 16px;
+}
