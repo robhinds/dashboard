@@ -34,7 +34,7 @@ component extends="fusebox5.Application" output="false"{
 		myFusebox.getApplicationData().startTime = now();
 		
 		//Initialise Service classes (this is our stateless, singleton service layer)
-		application.systemService 	= new model.services.SystemService();
+		application.widgetService 	= new model.services.WidgetService();
 		
 	}
 		

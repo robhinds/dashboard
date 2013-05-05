@@ -1,5 +1,3 @@
-<cfimport prefix="widget" taglib="/dashboard/customtags/">
-
 <!--- Start Javascript --->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -25,7 +23,6 @@ $(document).ready(function() {
 
 
 <!--- Widgt Body --->
-<widget:widget rowPosition="#event.getValue('rowPosition')#" colPosition="#event.getValue('colPosition')#" rowHeight="#event.getValue('rowHeight')#" colWidth="#event.getValue('colWidth')#" bgColour="#event.getValue('bgColour')#" >
-	<h3 class="text-center">Donut</h3>
+<cf_widget>
 	<canvas id="donut-chart" width="250" height="230"></canvas>
-</widget:widget>
+</cf_widget>

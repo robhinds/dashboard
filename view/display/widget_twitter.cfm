@@ -1,17 +1,19 @@
-<cfimport prefix="widget" taglib="/dashboard/customtags/">
+<!--- Bind Widget to JS --->
 <script type="text/javascript">
 $(document).ready(function() {
-	var tweetWidget = new twitterWidget.Models.TweetModel();
-	var view = new twitterWidget.Views.TweetView( { model: tweetWidget } );
-	tweetWidget.fetch();
-	setInterval(tweetWidget.fetch, 30000);
+	twitterWidget.Widgets.bind( {
+		target: '#<cfoutput>#event.getValue('widgetId')#</cfoutput>',
+		refreshRate: '<cfoutput>#event.getValue('refreshRate')#</cfoutput>',
+		userName: '<cfoutput>#event.getValue('userName')#</cfoutput>'
+	}); 
 });
 </script>
 
-<widget:widget rowPosition="#event.getValue('rowPosition')#" colPosition="#event.getValue('colPosition')#" rowHeight="#event.getValue('rowHeight')#" colWidth="#event.getValue('colWidth')#" bgColour="#event.getValue('bgColour')#" >
-	<h3>Latest from Twitter</h3>
-	<div id="twitter"></div>
-</widget:widget>
+
+<!--- Widget Markup --->
+<cf_widget>
+	<div id="<cfoutput>#event.getValue('widgetId')#</cfoutput>"></div>
+</cf_widget>
 
 
 <!--- Widget Template --->

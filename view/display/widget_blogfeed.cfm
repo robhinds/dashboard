@@ -1,20 +1,19 @@
-<cfimport prefix="widget" taglib="/dashboard/customtags/">
-
 <!--- Start Javascript --->
 <script type="text/javascript">
 $(document).ready(function() {
-	new blogFeedWidget.Views.BlogListView();
-	blogFeedWidget.Collections.BlogList.fetch({reset:true});
-	setInterval( function(){ blogFeedWidget.Collections.BlogList.fetch({reset:true}); }, 300000);
+	blogFeedWidget.Widgets.bind( {
+		target: '#<cfoutput>#event.getValue('widgetId')#</cfoutput>',
+		refreshRate: '<cfoutput>#event.getValue('refreshRate')#</cfoutput>',
+		blogUrl: '<cfoutput>#event.getValue('blogFeedUrl')#</cfoutput>'
+	});
 });
 </script>
 
 
 <!--- Widgt Body --->
-<widget:widget rowPosition="#event.getValue('rowPosition')#" colPosition="#event.getValue('colPosition')#" rowHeight="#event.getValue('rowHeight')#" colWidth="#event.getValue('colWidth')#" bgColour="#event.getValue('bgColour')#" >
-	<h3 class="text-center">Latest Blog Posts</h3>
-	<div id="latest-blog-posts"></div>
-</widget:widget>
+<cf_widget>
+	<div id="<cfoutput>#event.getValue('widgetId')#</cfoutput>"></div>
+</cf_widget>
 
 
 <!--- Widget Template --->

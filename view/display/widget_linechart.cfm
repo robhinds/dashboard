@@ -1,5 +1,3 @@
-<cfimport prefix="widget" taglib="/dashboard/customtags/">
-
 <!--- Start Javascript --->
 <script type="text/javascript">
 $(document).ready(function() {
@@ -28,17 +26,15 @@ $(document).ready(function() {
 	var panelHeight = <cfoutput>#event.getValue('rowHeight')#</cfoutput>;
 	var canvasWidth = gridster.options.widget_base_dimensions[0] * panelWidth;
 	var canvasHeight = gridster.options.widget_base_dimensions[0] * panelHeight * 0.80;
-	var canvas = document.getElementById("line-chart");
+	var canvas = document.getElementById("<cfoutput>#event.getValue('widgetId')#</cfoutput>");
 	canvas.width  = canvasWidth;
 	canvas.height = canvasHeight;
-	var ctx = document.getElementById("line-chart").getContext("2d");
+	var ctx = canvas.getContext("2d");
 	new Chart(ctx).Line(data,{scaleShowGridLines :false, bezierCurve :false});
 });
 </script>
 
-
 <!--- Widgt Body --->
-<widget:widget rowPosition="#event.getValue('rowPosition')#" colPosition="#event.getValue('colPosition')#" rowHeight="#event.getValue('rowHeight')#" colWidth="#event.getValue('colWidth')#" bgColour="#event.getValue('bgColour')#" >
-	<h3 class="text-center">Graphs</h3>
-	<canvas id="line-chart"></canvas>
-</widget:widget>
+<cf_widget>
+	<canvas id="<cfoutput>#event.getValue('widgetId')#</cfoutput>"></canvas>
+</cf_widget>

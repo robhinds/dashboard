@@ -1,37 +1,30 @@
-var blogFeedWidget = blogFeedWidget || { Models: {}, Views: {}, Collections: {} };
+var blogFeedWidget = blogFeedWidget || { Models: {}, Collections: {}, Widgets: {} };
 $(function(){
 	blogFeedWidget.Models.BlogModel = Backbone.Model.extend( {});
-	
-	var BlogList = Backbone.Collection.extend({
+	blogFeedWidget.Collections.BlogList = Backbone.Collection.extend({
 		model: blogFeedWidget.Models.BlogModel,
 		initialize: function() {_.bindAll(this); },
-		url: "/dashboard/index.cfm/api/blogfeed?feed=http://blog.nerdability.com/feeds/posts/default"
-	});
-	blogFeedWidget.Collections.BlogList = new BlogList();
-	
-	blogFeedWidget.Views.BlogView = Backbone.View.extend({
-		tagName: 'div',
-		blogPostTpl:_.template( $('#blogpost-template').html() ),
-		initialize: function() {},
-		render: function () {
-			this.$el.html( this.blogPostTpl( this.model.toJSON() ) );
-			return this;
-		}
+		url: "/dashboard/index.cfm/api/blogfeed"
 	});
 	
-	blogFeedWidget.Views.BlogListView = Backbone.View.extend({
-		el:  "#widget-blog",
-		initialize: function() {
-			blogFeedWidget.Collections.BlogList.on('reset', this.addAll, this);
-		},
-		render: function () {},
-		addOne: function( blog ){
-			var view = new blogFeedWidget.Views.BlogView( { model: blog } );
-			$('#latest-blog-posts').append( view.render().el );
-		},
-		addAll: function() {
-			$('#latest-blog-posts').html('');
-			blogFeedWidget.Collections.BlogList.each(this.addOne, this);
+	blogFeedWidget.Widgets.bind = function(attributes) {
+		var attribs = attributes || {};
+		var blogPostTemplate = _.template( $('#blogpost-template').html() );
+		var blogList = new blogFeedWidget.Collections.BlogList( {url:'bad url'} );
+		
+		//handle change events
+		blogList.on('reset', function(){
+			var targetElementId = attribs.target || "#latest-blog-posts"
+			$( targetElementId ).html('');
+			blogList.each(function( blogPost ){
+				$( targetElementId ).append( blogPostTemplate( blogPost.toJSON() ) );
+			}, this);
+		});
+		
+		//fetchdata		
+		blogList.fetch({reset:true, data: $.param({ feed: attribs.blogUrl}) });
+		if ( attribs.refreshRate && attribs.refreshRate > 0 ){
+			setInterval( function(){ blogList.fetch({reset:true, data: $.param({ feed: attribs.blogUrl}) }); }, attribs.refreshRate);
 		}
-	});
+	};
 }());
