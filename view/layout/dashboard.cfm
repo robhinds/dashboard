@@ -40,6 +40,7 @@
 	<footer>
 		<script src="/dashboard/assets/js/widgets/twitter.js"></script>
 		<script src="/dashboard/assets/js/widgets/blogfeed.js"></script>
+		<script src="/dashboard/assets/js/widgets/linechart.js"></script>
 	</footer>
 </body>
 </html>

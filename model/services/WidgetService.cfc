@@ -61,4 +61,17 @@ component output="false"{
 						height: arguments.height, title:arguments.title, bgColour: arguments.bgColour);
 	}
 	
+	
+	/**
+	 * Create a widget that uses the generic linechart view
+	 */
+	public void function createLineChartWidget(required any myFusebox, required any event, String elementId="", numeric refreshRate=0, 
+								required numeric rowNumber, required numeric colNumber, required numeric width, 
+								required numeric height, String title="", String bgColour="orange", required String apiUrl){
+		event.setValue('apiUrl', arguments.apiUrl);
+		createWidget( myFusebox:arguments.myFusebox, event:arguments.event, widgetType:'linechart', elementId:arguments.elementId, 
+						refreshRate:arguments.refreshRate, rowNumber:arguments.rowNumber, colNumber: arguments.colNumber, width: arguments.width, 
+						height: arguments.height, title:arguments.title, bgColour: arguments.bgColour);
+	}
+	
 }
