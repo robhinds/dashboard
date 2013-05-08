@@ -1,7 +1,7 @@
 <!--- Start Javascript --->
 <script type="text/javascript">
 $(document).ready(function() {
-	blogFeedWidget.Widgets.bind( {
+	new blogFeedWidget.Views.BlogPostView( {
 		target: '#<cfoutput>#event.getValue('widgetId')#</cfoutput>',
 		refreshRate: '<cfoutput>#event.getValue('refreshRate')#</cfoutput>',
 		blogUrl: '<cfoutput>#event.getValue('blogFeedUrl')#</cfoutput>'

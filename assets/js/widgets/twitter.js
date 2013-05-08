@@ -1,4 +1,4 @@
-var twitterWidget = twitterWidget || { Models: {}, Widgets: {} };
+var twitterWidget = twitterWidget || { Models: {}, Widgets: {}, Views: {} };
 $(function(){
 	
 	twitterWidget.Models.TweetModel = Backbone.Model.extend( { 
@@ -6,20 +6,23 @@ $(function(){
 		initialize: function() {_.bindAll(this); }
 	});
 	
-	twitterWidget.Widgets.bind = function(attributes) {
-		var attribs = attributes || {};
-		var tweetTemplate = _.template( $('#latest-tweet-template').html() );
-		var tweetModel = new twitterWidget.Models.TweetModel();
-		tweetModel.on( 'change', function(){
-			var targetElementId = attribs.target || "#twitter"
-			$( targetElementId ).append( tweetTemplate( tweetModel.toJSON() ) );
-		});
+	twitterWidget.Views.TweetView = Backbone.View.extend({
+		template: _.template( $('#latest-tweet-template').html() ),
 		
-		//fetchdata		
-		tweetModel.fetch( {data: $.param( {userName: attribs.userName} )} );
-		if ( attribs.refreshRate && attribs.refreshRate > 0 ){
-			setInterval(function(){ tweetModel.fetch( {data: $.param( {userName: attribs.userName} )} ); }, attribs.refreshRate);
+		initialize: function() {
+			this.model = new twitterWidget.Models.TweetModel();
+			this.model.on( 'change', this.render, this );
+			this.model.fetch( {data: $.param( {userName: this.options.userName} )} );
+			var tweetView = this;
+			if ( this.options.refreshRate && this.options.refreshRate > 0 ){
+				setInterval(function(){ tweetView.model.fetch( {data: $.param( {userName: tweetView.options.userName} )} ); }, tweetView.options.refreshRate);
+			}
+		},
+
+		render: function() {
+			$( this.options.target ).append( this.template( this.model.toJSON() ) );
+			return this;
 		}
-	};
+	});
 	
 }());

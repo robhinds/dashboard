@@ -1,7 +1,7 @@
 <!--- Bind Widget to JS --->
 <script type="text/javascript">
 $(document).ready(function() {
-	twitterWidget.Widgets.bind( {
+	new twitterWidget.Views.TweetView( {
 		target: '#<cfoutput>#event.getValue('widgetId')#</cfoutput>',
 		refreshRate: '<cfoutput>#event.getValue('refreshRate')#</cfoutput>',
 		userName: '<cfoutput>#event.getValue('userName')#</cfoutput>'

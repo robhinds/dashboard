@@ -1,4 +1,4 @@
-var blogFeedWidget = blogFeedWidget || { Models: {}, Collections: {}, Widgets: {} };
+var blogFeedWidget = blogFeedWidget || { Models: {}, Collections: {}, Views: {} };
 $(function(){
 	blogFeedWidget.Models.BlogModel = Backbone.Model.extend( {});
 	blogFeedWidget.Collections.BlogList = Backbone.Collection.extend({
@@ -7,24 +7,26 @@ $(function(){
 		url: "/dashboard/index.cfm/api/blogfeed"
 	});
 	
-	blogFeedWidget.Widgets.bind = function(attributes) {
-		var attribs = attributes || {};
-		var blogPostTemplate = _.template( $('#blogpost-template').html() );
-		var blogList = new blogFeedWidget.Collections.BlogList( {url:'bad url'} );
+	blogFeedWidget.Views.BlogPostView = Backbone.View.extend({
+		template: _.template( $('#blogpost-template').html() ),
 		
-		//handle change events
-		blogList.on('reset', function(){
-			var targetElementId = attribs.target || "#latest-blog-posts"
-			$( targetElementId ).html('');
-			blogList.each(function( blogPost ){
-				$( targetElementId ).append( blogPostTemplate( blogPost.toJSON() ) );
-			}, this);
-		});
-		
-		//fetchdata		
-		blogList.fetch({reset:true, data: $.param({ feed: attribs.blogUrl}) });
-		if ( attribs.refreshRate && attribs.refreshRate > 0 ){
-			setInterval( function(){ blogList.fetch({reset:true, data: $.param({ feed: attribs.blogUrl}) }); }, attribs.refreshRate);
-		}
-	};
+		initialize: function() {
+			this.blogList = new blogFeedWidget.Collections.BlogList();
+			
+			this.blogList.on( 'reset', this.addAll, this );
+			this.blogList.fetch({reset:true, data: $.param({ feed: this.options.blogUrl}) });
+			var blogView = this;
+			if ( this.options.refreshRate && this.options.refreshRate > 0 ){
+				setInterval( function(){ blogView.blogList.fetch({reset:true, data: $.param({ feed: blogView.options.blogUrl}) }); }, blogView.options.refreshRate);
+			}
+		},
+		addAll: function() {
+			$( this.options.target ).html( '' );
+			this.blogList.each( this.addOne, this );
+		},
+		addOne: function( blogPost ) {
+			$( this.options.target ).append( this.template( blogPost.toJSON() ) );
+		},
+		render: function() { return this; }
+	});
 }());

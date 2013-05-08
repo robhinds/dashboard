@@ -26,6 +26,7 @@
 	<script src="/dashboard/assets/js/vendor/backbone/backbone.dev.js"></script>
 	<script src="/dashboard/assets/js/vendor/backbone/config.js"></script>
 	<script src="/dashboard/assets/js/vendor/chartjs/chart.js"></script>
+	<script src="/dashboard/assets/js/vendor/gauge/gauge.min.js"></script>
 	<script src="/dashboard/assets/js/main.js"></script>
 	
 </head>
@@ -41,6 +42,7 @@
 		<script src="/dashboard/assets/js/widgets/twitter.js"></script>
 		<script src="/dashboard/assets/js/widgets/blogfeed.js"></script>
 		<script src="/dashboard/assets/js/widgets/linechart.js"></script>
+		<script src="/dashboard/assets/js/widgets/gage.js"></script>
 	</footer>
 </body>
 </html>
