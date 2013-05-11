@@ -39,10 +39,12 @@ $(function(){
 				strokeColor: '#E0DCBA', 
 				generateGradient: true
 			};
-			var target = document.getElementById( this.options.target );
-			var gauge = new Gauge(target).setOptions(opts);
-			gauge.maxValue = this.model.toJSON().maxValue;
-			gauge.set( this.model.toJSON().value ); 
+			if ( !this.gauge ){
+				var target = document.getElementById( this.options.target );
+				this.gauge = new Gauge(target).setOptions(opts);
+			}
+			this.gauge.maxValue = this.model.toJSON().maxValue;
+			this.gauge.set( this.model.toJSON().value ); 
 			$( '#' + this.options.target + '-value' ).html( this.model.toJSON().value );
 			return this;
 		}

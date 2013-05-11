@@ -66,7 +66,7 @@ component output="false"{
 	
 	
 	public void function examplegage( myFusebox, event ){
-		var local.returnJson = {"value" = 1275, "maxValue" = 3000};
+		var local.returnJson = {"value" = randRange(1,3000), "maxValue" = 3000};
 
 		getPageContext().getResponse().setContentType('application/json');
 		writeOutput( serializeJson( local.returnJson ) );
