@@ -10,5 +10,6 @@ This dashboard uses ColdFusion10 on the server side (I'm normally a java server 
 The Javascript in use is currently:
 
 - gridster.js - this library does most of the work in making it look wicked cool and the whole drag and drop stuff
-- backbone.js (including underscore.js)  - Each widget is a view for a model, and just hits up an api to load in the content, although having built three widgets, I'm starting to think this is not the best approach and thinking to drop backbone and just using the underscore stuff for templating)
+- backbone.js - Each widget is a view for a model, and just hits up an api to load in the content
 - charts.js - as it suggests, this provides some sweet html5/js charts stuff
+- gauge.js - again, as you'd expect, this one drives the gage widget
