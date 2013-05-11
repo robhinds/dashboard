@@ -63,4 +63,12 @@ component output="false"{
 		getPageContext().getResponse().setContentType('application/json');
 		writeOutput( serializeJson( local.returnJson ) );
 	}
+	
+	
+	public void function examplegage( myFusebox, event ){
+		var local.returnJson = {"value" = 1275, "maxValue" = 3000};
+
+		getPageContext().getResponse().setContentType('application/json');
+		writeOutput( serializeJson( local.returnJson ) );
+	}
 }

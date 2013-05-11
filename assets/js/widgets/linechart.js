@@ -10,7 +10,7 @@ $(function(){
 			//initialize canvas
 			var panelWidth = this.options.colWidth;
 			var panelHeight = this.options.rowHeight;
-			var canvasWidth = gridster.options.widget_base_dimensions[0] * panelWidth;
+			var canvasWidth = (gridster.options.widget_base_dimensions[0] * panelWidth) + 20;
 			var canvasHeight = gridster.options.widget_base_dimensions[0] * panelHeight * 0.80;
 			var canvas = document.getElementById( this.options.target );
 			canvas.width  = canvasWidth;
@@ -29,7 +29,7 @@ $(function(){
 		},
 
 		render: function() {
-			new Chart( this.ctx ).Line( this.model.toJSON(), { scaleShowGridLines :false, bezierCurve :false } );
+			new Chart( this.ctx ).Line( this.model.toJSON(), { scaleShowGridLines :false, bezierCurve :true } );
 			return this;
 		}
 	});
